@@ -9,20 +9,25 @@ exports.__esModule = true;
 exports.NavComponent = void 0;
 var core_1 = require("@angular/core");
 var NavComponent = /** @class */ (function () {
-    function NavComponent(accountService) {
+    function NavComponent(accountService, router, toastr) {
         this.accountService = accountService;
+        this.router = router;
+        this.toastr = toastr;
         this.model = {};
     }
     NavComponent.prototype.ngOnInit = function () { };
     NavComponent.prototype.login = function () {
+        var _this = this;
         this.accountService.login(this.model).subscribe(function (response) {
-            console.log(response);
+            _this.router.navigateByUrl('members');
         }, function (error) {
             console.log(error);
+            _this.toastr.error(error.error);
         });
     };
     NavComponent.prototype.logout = function () {
         this.accountService.logout();
+        this.router.navigateByUrl('/');
     };
     NavComponent = __decorate([
         core_1.Component({
