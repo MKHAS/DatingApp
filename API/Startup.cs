@@ -30,7 +30,6 @@ namespace API
         public Startup(IConfiguration config)
         {
             _config = config;
-
         }
 
 
@@ -40,6 +39,10 @@ namespace API
         {
             //AddScoped limits the lifetime of the service to that of the http request
             services.AddApplicationServices(_config);
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "API", Version = "v1" });
+            });
             services.AddControllers();
             services.AddCors();
             services.AddIdentityServices(_config);
