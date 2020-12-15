@@ -9,6 +9,9 @@ exports.__esModule = true;
 exports.AppRoutingModule = void 0;
 var core_1 = require("@angular/core");
 var router_1 = require("@angular/router");
+var not_found_component_1 = require("./errors/not-found/not-found.component");
+var server_error_component_1 = require("./errors/server-error/server-error.component");
+var test_errors_component_1 = require("./errors/test-errors/test-errors.component");
 var home_component_1 = require("./home/home.component");
 var lists_component_1 = require("./lists/lists.component");
 var member_detail_component_1 = require("./members/member-detail/member-detail.component");
@@ -28,7 +31,10 @@ var routes = [
             { path: 'messages', component: messages_component_1.MessagesComponent },
         ]
     },
-    { path: '**', component: home_component_1.HomeComponent, pathMatch: 'full' },
+    { path: 'errors', component: test_errors_component_1.TestErrorsComponent },
+    { path: 'not-found', component: not_found_component_1.NotFoundComponent },
+    { path: 'server-error', component: server_error_component_1.ServerErrorComponent },
+    { path: '**', component: not_found_component_1.NotFoundComponent, pathMatch: 'full' },
 ];
 var AppRoutingModule = /** @class */ (function () {
     function AppRoutingModule() {

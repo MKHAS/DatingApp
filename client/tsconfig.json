@@ -6,7 +6,7 @@
     "outDir": "./dist/out-tsc",
     "forceConsistentCasingInFileNames": true,
     "strict": false,
-    "noImplicitReturns": true,
+    "noImplicitReturns": false,
     "noFallthroughCasesInSwitch": true,
     "sourceMap": true,
     "declaration": false,
@@ -17,6 +17,7 @@
     "target": "es2015",
     "module": "es2020",
     "lib": [
+      "es2019",
       "es2018",
       "dom"
     ]

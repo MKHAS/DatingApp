@@ -20,9 +20,6 @@ var NavComponent = /** @class */ (function () {
         var _this = this;
         this.accountService.login(this.model).subscribe(function (response) {
             _this.router.navigateByUrl('members');
-        }, function (error) {
-            console.log(error);
-            _this.toastr.error(error.error);
         });
     };
     NavComponent.prototype.logout = function () {

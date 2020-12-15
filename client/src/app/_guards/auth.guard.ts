@@ -27,6 +27,6 @@ export class AuthGuard implements CanActivate {
         if (user) return true; // <- this is actually an observable of true
         this.toastr.error('YOU SHALL NOT PAAASSS!');
       })
-    );
+    )
   }
 }
