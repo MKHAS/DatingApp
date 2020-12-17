@@ -11,6 +11,8 @@ var core_1 = require("@angular/core");
 var common_1 = require("@angular/common");
 var dropdown_1 = require("ngx-bootstrap/dropdown");
 var ngx_toastr_1 = require("ngx-toastr");
+var tabs_1 = require("ngx-bootstrap/tabs");
+var ngx_gallery_1 = require("@kolkov/ngx-gallery");
 var SharedModule = /** @class */ (function () {
     function SharedModule() {
     }
@@ -23,10 +25,14 @@ var SharedModule = /** @class */ (function () {
                 ngx_toastr_1.ToastrModule.forRoot({
                     positionClass: 'toast-bottom-right'
                 }),
+                tabs_1.TabsModule.forRoot(),
+                ngx_gallery_1.NgxGalleryModule
             ],
             exports: [
                 dropdown_1.BsDropdownModule,
-                ngx_toastr_1.ToastrModule
+                ngx_toastr_1.ToastrModule,
+                tabs_1.TabsModule,
+                ngx_gallery_1.NgxGalleryModule
             ]
         })
     ], SharedModule);

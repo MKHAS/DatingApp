@@ -10,10 +10,11 @@ exports.AccountService = void 0;
 var core_1 = require("@angular/core");
 var rxjs_1 = require("rxjs");
 var operators_1 = require("rxjs/operators");
+var environment_1 = require("src/environments/environment");
 var AccountService = /** @class */ (function () {
     function AccountService(http) {
         this.http = http;
-        this.baseUrl = 'https://localhost:5001/api/';
+        this.baseUrl = environment_1.environment.apiUrl;
         this.currentUserSource = new rxjs_1.ReplaySubject(1);
         this.currentUser$ = this.currentUserSource.asObservable();
     }
