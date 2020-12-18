@@ -28,6 +28,9 @@ var not_found_component_1 = require("./errors/not-found/not-found.component");
 var server_error_component_1 = require("./errors/server-error/server-error.component");
 var member_card_component_1 = require("./members/member-card/member-card.component");
 var jwt_interceptor_1 = require("./_interceptors/jwt.interceptor");
+var member_edit_component_1 = require("./members/member-edit/member-edit.component");
+var ngx_spinner_1 = require("ngx-spinner");
+var loading_interceptor_1 = require("./_interceptors/loading.interceptor");
 var AppModule = /** @class */ (function () {
     function AppModule() {
     }
@@ -46,6 +49,7 @@ var AppModule = /** @class */ (function () {
                 not_found_component_1.NotFoundComponent,
                 server_error_component_1.ServerErrorComponent,
                 member_card_component_1.MemberCardComponent,
+                member_edit_component_1.MemberEditComponent,
             ],
             imports: [
                 platform_browser_1.BrowserModule,
@@ -53,11 +57,13 @@ var AppModule = /** @class */ (function () {
                 http_1.HttpClientModule,
                 animations_1.BrowserAnimationsModule,
                 forms_1.FormsModule,
-                shared_module_1.SharedModule
+                shared_module_1.SharedModule,
+                ngx_spinner_1.NgxSpinnerModule
             ],
             providers: [
                 { provide: http_1.HTTP_INTERCEPTORS, useClass: error_interceptor_1.ErrorInterceptor, multi: true },
                 { provide: http_1.HTTP_INTERCEPTORS, useClass: jwt_interceptor_1.JwtInterceptor, multi: true },
+                { provide: http_1.HTTP_INTERCEPTORS, useClass: loading_interceptor_1.LoadingInterceptor, multi: true }
             ],
             bootstrap: [app_component_1.AppComponent]
         })

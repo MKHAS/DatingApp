@@ -22,6 +22,9 @@ var NavComponent = /** @class */ (function () {
             _this.router.navigateByUrl('members');
         });
     };
+    NavComponent.prototype.editProfile = function () {
+        this.router.navigateByUrl('member/edit');
+    };
     NavComponent.prototype.logout = function () {
         this.accountService.logout();
         this.router.navigateByUrl('/');

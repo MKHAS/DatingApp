@@ -6,22 +6,22 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 exports.__esModule = true;
-exports.MemberListComponent = void 0;
+exports.PreventUnsavedChangesGuard = void 0;
 var core_1 = require("@angular/core");
-var MemberListComponent = /** @class */ (function () {
-    function MemberListComponent(memberService) {
-        this.memberService = memberService;
+var PreventUnsavedChangesGuard = /** @class */ (function () {
+    function PreventUnsavedChangesGuard() {
     }
-    MemberListComponent.prototype.ngOnInit = function () {
-        this.members$ = this.memberService.getMembers();
+    PreventUnsavedChangesGuard.prototype.canDeactivate = function (component) {
+        if (component.editForm.dirty) {
+            return confirm('Are you sure you want to continue? Any unsaved changes will be lost');
+        }
+        return true;
     };
-    MemberListComponent = __decorate([
-        core_1.Component({
-            selector: 'app-member-list',
-            templateUrl: './member-list.component.html',
-            styleUrls: ['./member-list.component.css']
+    PreventUnsavedChangesGuard = __decorate([
+        core_1.Injectable({
+            providedIn: 'root'
         })
-    ], MemberListComponent);
-    return MemberListComponent;
+    ], PreventUnsavedChangesGuard);
+    return PreventUnsavedChangesGuard;
 }());
-exports.MemberListComponent = MemberListComponent;
+exports.PreventUnsavedChangesGuard = PreventUnsavedChangesGuard;
