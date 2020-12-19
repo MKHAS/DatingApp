@@ -70,6 +70,11 @@ var PhotoEditorComponent = /** @class */ (function () {
             if (response) {
                 var photo = JSON.parse(response);
                 _this.member.photos.push(photo);
+                if (photo.isMain) {
+                    _this.user.photoUrl = photo.url;
+                    _this.member.photoUrl = photo.url;
+                    _this.accountService.setCurrentUser(_this.user);
+                }
             }
         };
     };

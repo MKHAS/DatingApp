@@ -31,6 +31,7 @@ var jwt_interceptor_1 = require("./_interceptors/jwt.interceptor");
 var member_edit_component_1 = require("./members/member-edit/member-edit.component");
 var ngx_spinner_1 = require("ngx-spinner");
 var loading_interceptor_1 = require("./_interceptors/loading.interceptor");
+var photo_editor_component_1 = require("./members/photo-editor/photo-editor.component");
 var AppModule = /** @class */ (function () {
     function AppModule() {
     }
@@ -50,6 +51,7 @@ var AppModule = /** @class */ (function () {
                 server_error_component_1.ServerErrorComponent,
                 member_card_component_1.MemberCardComponent,
                 member_edit_component_1.MemberEditComponent,
+                photo_editor_component_1.PhotoEditorComponent,
             ],
             imports: [
                 platform_browser_1.BrowserModule,
@@ -57,6 +59,7 @@ var AppModule = /** @class */ (function () {
                 http_1.HttpClientModule,
                 animations_1.BrowserAnimationsModule,
                 forms_1.FormsModule,
+                forms_1.ReactiveFormsModule,
                 shared_module_1.SharedModule,
                 ngx_spinner_1.NgxSpinnerModule
             ],
