@@ -41,6 +41,12 @@ var MembersService = /** @class */ (function () {
             _this.members[index] = member;
         }));
     };
+    MembersService.prototype.setMainPhoto = function (photoId) {
+        return this.http.put(this.baseUrl + 'users/set-main-photo/' + photoId, {});
+    };
+    MembersService.prototype.deletePhoto = function (photoId) {
+        return this.http["delete"](this.baseUrl + 'users/delete-photo/' + photoId);
+    };
     MembersService = __decorate([
         core_1.Injectable({
             providedIn: 'root'

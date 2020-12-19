@@ -23,8 +23,7 @@ var AccountService = /** @class */ (function () {
         return this.http.post(this.baseUrl + 'account/login', model).pipe(operators_1.map(function (response) {
             var user = response;
             if (user) {
-                localStorage.setItem('user', JSON.stringify(user));
-                _this.currentUserSource.next(user);
+                _this.setCurrentUser(user);
             }
         }));
     };
@@ -32,12 +31,12 @@ var AccountService = /** @class */ (function () {
         var _this = this;
         return this.http.post(this.baseUrl + 'account/register', model).pipe(operators_1.map(function (user) {
             if (user) {
-                localStorage.setItem('user', JSON.stringify(user));
-                _this.currentUserSource.next(user);
+                _this.setCurrentUser(user);
             }
         }));
     };
     AccountService.prototype.setCurrentUser = function (user) {
+        localStorage.setItem('user', JSON.stringify(user));
         this.currentUserSource.next(user);
     };
     AccountService.prototype.logout = function () {
