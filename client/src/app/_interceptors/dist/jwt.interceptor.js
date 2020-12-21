@@ -8,14 +8,14 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 exports.__esModule = true;
 exports.JwtInterceptor = void 0;
 var core_1 = require("@angular/core");
-var take_1 = require("rxjs/internal/operators/take");
+var operators_1 = require("rxjs/operators");
 var JwtInterceptor = /** @class */ (function () {
     function JwtInterceptor(accountService) {
         this.accountService = accountService;
     }
     JwtInterceptor.prototype.intercept = function (request, next) {
         var currentUser;
-        this.accountService.currentUser$.pipe(take_1.take(1)).subscribe(function (user) { return currentUser = user; });
+        this.accountService.currentUser$.pipe(operators_1.take(1)).subscribe(function (user) { return currentUser = user; });
         if (currentUser) {
             request = request.clone({
                 setHeaders: {

@@ -9,7 +9,7 @@ exports.__esModule = true;
 exports.PhotoEditorComponent = void 0;
 var core_1 = require("@angular/core");
 var ng2_file_upload_1 = require("ng2-file-upload");
-var take_1 = require("rxjs/internal/operators/take");
+var operators_1 = require("rxjs/operators");
 var environment_1 = require("src/environments/environment");
 var PhotoEditorComponent = /** @class */ (function () {
     function PhotoEditorComponent(accountService, memberService) {
@@ -19,7 +19,7 @@ var PhotoEditorComponent = /** @class */ (function () {
         this.hasBaseDropzoneOver = false;
         this.baseUrl = environment_1.environment.apiUrl;
         this.accountService.currentUser$
-            .pipe(take_1.take(1))
+            .pipe(operators_1.take(1))
             .subscribe(function (user) { return (_this.user = user); });
     }
     PhotoEditorComponent.prototype.ngOnInit = function () {
