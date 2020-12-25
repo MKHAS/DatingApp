@@ -85,6 +85,14 @@ var MembersService = /** @class */ (function () {
     MembersService.prototype.deletePhoto = function (photoId) {
         return this.http["delete"](this.baseUrl + 'users/delete-photo/' + photoId);
     };
+    MembersService.prototype.addLike = function (username) {
+        return this.http.post(this.baseUrl + 'likes/' + username, {});
+    };
+    MembersService.prototype.getLikes = function (predicate, pageNumber, pageSize) {
+        var params = this.getPaginationHeaders(pageNumber, pageSize);
+        params = params.append('predicate', predicate);
+        return this.getPaginatedResult(this.baseUrl + 'likes', params);
+    };
     MembersService.prototype.getPaginatedResult = function (url, params) {
         var paginatedResult = new pagination_1.PaginatedResult();
         return this.http.get(url, { observe: 'response', params: params }).pipe(operators_1.map(function (response) {
