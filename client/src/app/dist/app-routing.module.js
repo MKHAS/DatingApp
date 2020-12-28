@@ -20,6 +20,7 @@ var member_list_component_1 = require("./members/member-list/member-list.compone
 var messages_component_1 = require("./messages/messages.component");
 var auth_guard_1 = require("./_guards/auth.guard");
 var prevent_unsaved_changes_guard_1 = require("./_guards/prevent-unsaved-changes.guard");
+var member_detailed_resolver_1 = require("./_resolvers/member-detailed.resolver");
 var routes = [
     { path: '', component: home_component_1.HomeComponent },
     {
@@ -28,7 +29,7 @@ var routes = [
         canActivate: [auth_guard_1.AuthGuard],
         children: [
             { path: 'members', component: member_list_component_1.MemberListComponent },
-            { path: 'members/:username', component: member_detail_component_1.MemberDetailComponent },
+            { path: 'members/:username', component: member_detail_component_1.MemberDetailComponent, resolve: { member: member_detailed_resolver_1.MemberDetailedResolver } },
             { path: 'member/edit', component: member_edit_component_1.MemberEditComponent, canDeactivate: [prevent_unsaved_changes_guard_1.PreventUnsavedChangesGuard] },
             { path: 'lists', component: lists_component_1.ListsComponent },
             { path: 'messages', component: messages_component_1.MessagesComponent },
