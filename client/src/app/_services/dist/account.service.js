@@ -36,12 +36,18 @@ var AccountService = /** @class */ (function () {
         }));
     };
     AccountService.prototype.setCurrentUser = function (user) {
+        user.roles = [];
+        var roles = this.getDecodedToken(user.token).role;
+        Array.isArray(roles) ? user.roles = roles : user.roles.push(roles);
         localStorage.setItem('user', JSON.stringify(user));
         this.currentUserSource.next(user);
     };
     AccountService.prototype.logout = function () {
         localStorage.removeItem('user');
         this.currentUserSource.next(null);
+    };
+    AccountService.prototype.getDecodedToken = function (token) {
+        return JSON.parse(atob(token.split('.')[1])); // access to the payload inside the token
     };
     AccountService = __decorate([
         core_1.Injectable({

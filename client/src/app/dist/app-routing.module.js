@@ -9,6 +9,7 @@ exports.__esModule = true;
 exports.AppRoutingModule = void 0;
 var core_1 = require("@angular/core");
 var router_1 = require("@angular/router");
+var admin_panel_component_1 = require("./admin/admin-panel/admin-panel.component");
 var not_found_component_1 = require("./errors/not-found/not-found.component");
 var server_error_component_1 = require("./errors/server-error/server-error.component");
 var test_errors_component_1 = require("./errors/test-errors/test-errors.component");
@@ -18,6 +19,7 @@ var member_detail_component_1 = require("./members/member-detail/member-detail.c
 var member_edit_component_1 = require("./members/member-edit/member-edit.component");
 var member_list_component_1 = require("./members/member-list/member-list.component");
 var messages_component_1 = require("./messages/messages.component");
+var admin_guard_1 = require("./_guards/admin.guard");
 var auth_guard_1 = require("./_guards/auth.guard");
 var prevent_unsaved_changes_guard_1 = require("./_guards/prevent-unsaved-changes.guard");
 var member_detailed_resolver_1 = require("./_resolvers/member-detailed.resolver");
@@ -33,6 +35,7 @@ var routes = [
             { path: 'member/edit', component: member_edit_component_1.MemberEditComponent, canDeactivate: [prevent_unsaved_changes_guard_1.PreventUnsavedChangesGuard] },
             { path: 'lists', component: lists_component_1.ListsComponent },
             { path: 'messages', component: messages_component_1.MessagesComponent },
+            { path: 'admin', component: admin_panel_component_1.AdminPanelComponent, canActivate: [admin_guard_1.AdminGuard] }
         ]
     },
     { path: 'errors', component: test_errors_component_1.TestErrorsComponent },
