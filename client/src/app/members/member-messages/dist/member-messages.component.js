@@ -15,8 +15,8 @@ var MemberMessagesComponent = /** @class */ (function () {
     MemberMessagesComponent.prototype.ngOnInit = function () { };
     MemberMessagesComponent.prototype.sendMessage = function () {
         var _this = this;
-        this.messageService.sendMessage(this.username, this.messageContent).subscribe(function (message) {
-            _this.messages.push(message);
+        // 229: we use 'then' when we're using Promises
+        this.messageService.sendMessage(this.username, this.messageContent).then(function () {
             _this.messageForm.reset();
         });
     };

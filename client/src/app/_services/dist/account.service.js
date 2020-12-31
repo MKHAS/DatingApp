@@ -12,8 +12,9 @@ var rxjs_1 = require("rxjs");
 var operators_1 = require("rxjs/operators");
 var environment_1 = require("src/environments/environment");
 var AccountService = /** @class */ (function () {
-    function AccountService(http) {
+    function AccountService(http, presence) {
         this.http = http;
+        this.presence = presence;
         this.baseUrl = environment_1.environment.apiUrl;
         this.currentUserSource = new rxjs_1.ReplaySubject(1);
         this.currentUser$ = this.currentUserSource.asObservable();
@@ -24,6 +25,7 @@ var AccountService = /** @class */ (function () {
             var user = response;
             if (user) {
                 _this.setCurrentUser(user);
+                _this.presence.createHubConnection(user);
             }
         }));
     };
@@ -32,6 +34,7 @@ var AccountService = /** @class */ (function () {
         return this.http.post(this.baseUrl + 'account/register', model).pipe(operators_1.map(function (user) {
             if (user) {
                 _this.setCurrentUser(user);
+                _this.presence.createHubConnection(user);
             }
         }));
     };
@@ -45,6 +48,7 @@ var AccountService = /** @class */ (function () {
     AccountService.prototype.logout = function () {
         localStorage.removeItem('user');
         this.currentUserSource.next(null);
+        this.presence.stopHubConnection();
     };
     AccountService.prototype.getDecodedToken = function (token) {
         return JSON.parse(atob(token.split('.')[1])); // access to the payload inside the token

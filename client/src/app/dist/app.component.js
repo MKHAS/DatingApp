@@ -9,8 +9,9 @@ exports.__esModule = true;
 exports.AppComponent = void 0;
 var core_1 = require("@angular/core");
 var AppComponent = /** @class */ (function () {
-    function AppComponent(accountService) {
+    function AppComponent(accountService, presence) {
         this.accountService = accountService;
+        this.presence = presence;
         this.title = 'The Dating App';
     }
     AppComponent.prototype.ngOnInit = function () {
@@ -19,7 +20,10 @@ var AppComponent = /** @class */ (function () {
     AppComponent.prototype.setCurrentUser = function () {
         // we're using JSON.parse to get the object out of it's string form
         var user = JSON.parse(localStorage.getItem('user'));
-        this.accountService.setCurrentUser(user);
+        if (user) {
+            this.accountService.setCurrentUser(user);
+            this.presence.createHubConnection(user);
+        }
     };
     AppComponent = __decorate([
         core_1.Component({

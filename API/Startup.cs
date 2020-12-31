@@ -1,26 +1,13 @@
-using System.Text;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using API.Data;
-using API.Interfaces;
-using API.Services;
 using Microsoft.AspNetCore.Authentication;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
-using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using API.Extensions;
 using API.Middleware;
+using API.SignalR;
 
 namespace API
 {
@@ -47,6 +34,7 @@ namespace API
             services.AddControllers();
             services.AddCors();
             services.AddIdentityServices(_config);
+            services.AddSignalR();
         }
 
         private void JwtBeareDefaults(AuthenticationOptions obj)
@@ -62,9 +50,12 @@ namespace API
             app.UseHttpsRedirection();
 
             app.UseRouting();
-            //LEARNING NOTES: useCors needs to come before UseAuthentication
-            app.UseCors(x => x.AllowAnyHeader().AllowAnyMethod().WithOrigins("https://localhost:4200"));
-            //LEARNING NOTES: UseAuthentication needs to come before UseAuthorization
+            // useCors needs to come before UseAuthentication
+            app.UseCors(x => x.AllowAnyHeader()
+                .AllowAnyMethod()
+                .AllowCredentials() // 221: we need to specify this now that we're using SignalR because of the way we specify our access token
+                .WithOrigins("https://localhost:4200")); 
+            // UseAuthentication needs to come before UseAuthorization
             app.UseAuthentication();
 
             app.UseAuthorization();
@@ -72,6 +63,8 @@ namespace API
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
+                endpoints.MapHub<PresenceHub>("hubs/presence");
+                endpoints.MapHub<MessageHub>("hubs/message");
             });
         }
     }

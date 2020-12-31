@@ -1,3 +1,4 @@
+using System.Threading.Tasks;
 using System.Text;
 using API.Data;
 using API.Entities;
@@ -32,7 +33,24 @@ namespace API.Extensions
                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(config["TokenKey"])),
                    ValidateIssuer = false,
                    ValidateAudience = false,
+               };
 
+               options.Events = new JwtBearerEvents
+               {
+                   OnMessageReceived = context => 
+                   {
+                       // 221: SignalR by default well send up our token as a query string with the key "access_token" 
+                       var accessToken = context.Request.Query["access_token"];
+
+                       var path = context.HttpContext.Request.Path;
+
+                       if (!string.IsNullOrEmpty(accessToken) && path.StartsWithSegments("/hubs"))
+                       {
+                           context.Token = accessToken;
+                       }
+
+                       return Task.CompletedTask;
+                   }
                };
            });
 

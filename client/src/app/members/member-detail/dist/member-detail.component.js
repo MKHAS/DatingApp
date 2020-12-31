@@ -1,6 +1,5 @@
 "use strict";
-// SECTION 16 PART 191 NOTES:
-// Messages is a child component of member detail page
+// 191: Messages is a child component of member detail page
 // when our member detail page is constructed it also contructs the child inputs
 // and because in our child inputs in the ngOnInit we've got a call to load messages
 // that's what going in here
@@ -14,14 +13,18 @@ exports.__esModule = true;
 exports.MemberDetailComponent = void 0;
 var core_1 = require("@angular/core");
 var ngx_gallery_1 = require("@kolkov/ngx-gallery");
+var operators_1 = require("rxjs/operators");
 var MemberDetailComponent = /** @class */ (function () {
-    // initializing this here lets us use messages.length (like on line 68)
-    // \to check if the array is empty, we run into null pointer exception otherwise
-    function MemberDetailComponent(memberService, route, messageService) {
-        this.memberService = memberService;
+    function MemberDetailComponent(presence, route, messageService, accountService, router) {
+        var _this = this;
+        this.presence = presence;
         this.route = route;
         this.messageService = messageService;
+        this.accountService = accountService;
+        this.router = router;
         this.messages = [];
+        this.accountService.currentUser$.pipe(operators_1.take(1)).subscribe(function (user) { return _this.user = user; });
+        this.router.routeReuseStrategy.shouldReuseRoute = function () { return false; };
     }
     MemberDetailComponent.prototype.ngOnInit = function () {
         var _this = this;
@@ -69,8 +72,16 @@ var MemberDetailComponent = /** @class */ (function () {
     MemberDetailComponent.prototype.onTabActivated = function (data) {
         this.activeTab = data;
         if (this.activeTab.heading === 'Messages' && this.messages.length === 0) {
-            this.loadMessages();
+            this.messageService.createHubConnection(this.user, this.member.username);
         }
+        else {
+            this.messageService.stopHubConnection();
+        }
+    };
+    // 228: this could cause a problem if we destroy a tab when the user switches tab
+    // causing us to execute a function on something that doesn't exist, which causes an exception
+    MemberDetailComponent.prototype.ngOnDestroy = function () {
+        this.messageService.stopHubConnection();
     };
     __decorate([
         core_1.ViewChild('memberTabs', { static: true })
