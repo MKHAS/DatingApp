@@ -9,8 +9,9 @@ exports.__esModule = true;
 exports.MessagesComponent = void 0;
 var core_1 = require("@angular/core");
 var MessagesComponent = /** @class */ (function () {
-    function MessagesComponent(messageService) {
+    function MessagesComponent(messageService, confirmService) {
         this.messageService = messageService;
+        this.confirmService = confirmService;
         this.messages = [];
         this.container = 'Unread';
         this.pageNumber = 1;
@@ -32,8 +33,12 @@ var MessagesComponent = /** @class */ (function () {
     };
     MessagesComponent.prototype.deleteMessage = function (id) {
         var _this = this;
-        this.messageService.deleteMessage(id).subscribe(function () {
-            _this.messages.splice(_this.messages.findIndex(function (m) { return m.id === id; }), 1);
+        this.confirmService.confirm('Confirm Message Deletion', 'This cannot be undone').subscribe(function (result) {
+            if (result) {
+                _this.messageService.deleteMessage(id).subscribe(function () {
+                    _this.messages.splice(_this.messages.findIndex(function (m) { return m.id === id; }), 1);
+                });
+            }
         });
     };
     MessagesComponent.prototype.pageChanged = function (event) {

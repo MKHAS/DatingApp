@@ -31,6 +31,7 @@ var MemberMessagesComponent = /** @class */ (function () {
     ], MemberMessagesComponent.prototype, "username");
     MemberMessagesComponent = __decorate([
         core_1.Component({
+            changeDetection: core_1.ChangeDetectionStrategy.OnPush,
             selector: 'app-member-messages',
             templateUrl: './member-messages.component.html',
             styleUrls: ['./member-messages.component.css']

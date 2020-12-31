@@ -9,11 +9,12 @@ exports.__esModule = true;
 exports.PreventUnsavedChangesGuard = void 0;
 var core_1 = require("@angular/core");
 var PreventUnsavedChangesGuard = /** @class */ (function () {
-    function PreventUnsavedChangesGuard() {
+    function PreventUnsavedChangesGuard(confirmService) {
+        this.confirmService = confirmService;
     }
     PreventUnsavedChangesGuard.prototype.canDeactivate = function (component) {
         if (component.editForm.dirty) {
-            return confirm('Are you sure you want to continue? Any unsaved changes will be lost');
+            return this.confirmService.confirm();
         }
         return true;
     };
