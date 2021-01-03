@@ -16,7 +16,7 @@ var LoadingInterceptor = /** @class */ (function () {
     LoadingInterceptor.prototype.intercept = function (request, next) {
         var _this = this;
         this.busyService.busy();
-        return next.handle(request).pipe(operators_1.delay(1000), operators_1.finalize(function () {
+        return next.handle(request).pipe(operators_1.finalize(function () {
             _this.busyService.idle();
         }));
     };

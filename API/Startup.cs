@@ -52,7 +52,7 @@ namespace API
             app.UseRouting();
             // useCors needs to come before UseAuthentication
             app.UseCors(x => x.AllowAnyHeader()
-                .AllowAnyMethod()
+                .AllowAnyMethod()   
                 .AllowCredentials() // 221: we need to specify this now that we're using SignalR because of the way we specify our access token
                 .WithOrigins("https://localhost:4200")); 
             // UseAuthentication needs to come before UseAuthorization
@@ -60,11 +60,15 @@ namespace API
 
             app.UseAuthorization();
 
+            app.UseDefaultFiles(); // serve index.html if it exists
+            app.UseStaticFiles();
+
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
                 endpoints.MapHub<PresenceHub>("hubs/presence");
                 endpoints.MapHub<MessageHub>("hubs/message");
+                endpoints.MapFallbackToController("Index", "Fallback");
             });
         }
     }

@@ -8,10 +8,11 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 exports.__esModule = true;
 exports.TestErrorsComponent = void 0;
 var core_1 = require("@angular/core");
+var environment_1 = require("src/environments/environment");
 var TestErrorsComponent = /** @class */ (function () {
     function TestErrorsComponent(http) {
         this.http = http;
-        this.baseUrl = 'https://localhost:5001/api/';
+        this.baseUrl = environment_1.environment.apiUrl;
         this.validationErrors = [];
     }
     TestErrorsComponent.prototype.ngOnInit = function () { };
