@@ -1,3 +1,5 @@
 {
-    "compile-hero.disable-compile-files-on-did-save-code": false
+    "compile-hero.disable-compile-files-on-did-save-code": false,
+    "appService.defaultWebAppToDeploy": "/subscriptions/bc2c2a59-62ed-4cbe-944e-131849f5c713/resourceGroups/appsvc_windows_centralus/providers/Microsoft.Web/sites/mkhasdatingappazuredeploy",
+    "appService.deploySubpath": "API"
 }

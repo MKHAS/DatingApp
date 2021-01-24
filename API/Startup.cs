@@ -45,6 +45,7 @@ namespace API
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+            app.UseDeveloperExceptionPage();
             app.UseMiddleware<ExceptionMiddleware>();
 
             app.UseHttpsRedirection();
@@ -54,7 +55,7 @@ namespace API
             app.UseCors(x => x.AllowAnyHeader()
                 .AllowAnyMethod()   
                 .AllowCredentials() // 221: we need to specify this now that we're using SignalR because of the way we specify our access token
-                .WithOrigins("https://localhost:4200")); 
+                .WithOrigins("https://mkhasdatingapp.herokuapp.com")); 
             // UseAuthentication needs to come before UseAuthorization
             app.UseAuthentication();
 
