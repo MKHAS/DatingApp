@@ -11,14 +11,16 @@ var core_1 = require("@angular/core");
 var MemberMessagesComponent = /** @class */ (function () {
     function MemberMessagesComponent(messageService) {
         this.messageService = messageService;
+        this.loading = false;
     }
     MemberMessagesComponent.prototype.ngOnInit = function () { };
     MemberMessagesComponent.prototype.sendMessage = function () {
         var _this = this;
         // 229: we use 'then' when we're using Promises
+        this.loading = true;
         this.messageService.sendMessage(this.username, this.messageContent).then(function () {
             _this.messageForm.reset();
-        });
+        })["finally"](function () { return _this.loading = false; });
     };
     __decorate([
         core_1.ViewChild('messageForm')

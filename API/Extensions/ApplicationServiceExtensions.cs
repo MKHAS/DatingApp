@@ -58,7 +58,6 @@ namespace API.Extensions
                 // or from the environment variable from Heroku, use it to set up your DbContext.
                 options.UseSqlServer(config.GetConnectionString("DefaultConnection"));
             });
-
             return services;
         }
     }
