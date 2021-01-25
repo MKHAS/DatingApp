@@ -55,7 +55,7 @@ namespace API
             app.UseCors(x => x.AllowAnyHeader()
                 .AllowAnyMethod()
                 .AllowCredentials() // 221: we need to specify this now that we're using SignalR because of the way we specify our access token
-                .WithOrigins("https://mkhasdatingappazuredeploy.azurewebsites.net"));
+                .WithOrigins("https://mkhasdatingapp.herokuapp.com"));
             // UseAuthentication needs to come before UseAuthorization
             app.UseAuthentication();
 
