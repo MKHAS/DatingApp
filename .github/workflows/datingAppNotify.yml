@@ -11,11 +11,11 @@ on:
 
 jobs:
   send_mail:
-    runs-on: ubuntu-latest
+    runs-on: windows-latest
     steps:
     - name: Send mail
-    - uses: dawidd6/action-send-mail@v2
-    - with:
+      uses: dawidd6/action-send-mail@v2
+      with:
         server_address: smtp.gmail.com
         server_port: 465
         username: ${{secrets.MKHAS_GMAIL_USERNAME}}
