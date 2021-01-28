@@ -1,6 +1,8 @@
 <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-primary">
   <div class="container">
-    <a class="navbar-brand" routerLink="/">dating app changed</a>
+    <a class="navbar-brand" routerLink="/"
+      >dating app I made a change at 12:30 28/01/2021</a
+    >
 
     <ul class="navbar-nav mr-auto">
       <!-- ng container is a better technique to display conditionals because it doesnt' -->
@@ -24,12 +26,12 @@
           <a class="nav-link" routerLink="/messages" routerLinkActive="active"
             >Messages</a
           >
-        </li>        
-        <li *appHasRole='["Admin", "Moderator"]' class="nav-item">
+        </li>
+        <li *appHasRole="['Admin', 'Moderator']" class="nav-item">
           <a class="nav-link" routerLink="/admin" routerLinkActive="active"
             >Admin</a
           >
-        </li>        
+        </li>
       </ng-container>
       <li class="nav-item">
         <a class="nav-link" routerLink="/errors" routerLinkActive="active"
@@ -41,8 +43,12 @@
     <div
       class="dropdown"
       *ngIf="accountService.currentUser$ | async as user"
-      dropdown>
-      <img src="{{user.photoUrl || './assets/user.png'}}" alt="{{user.username}}">
+      dropdown
+    >
+      <img
+        src="{{ user.photoUrl || './assets/user.png' }}"
+        alt="{{ user.username }}"
+      />
       <a class="dropdown-toggle text-light ml-2" dropdownToggle
         >Welcome {{ user.knownAs || user.username | titlecase }}</a
       >
